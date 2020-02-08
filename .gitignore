@@ -169,5 +169,7 @@ ENV/
 
 /test.py
 /debug
-pytdx/reader/c_gbbq_reader.c
+/research
 
+*.c
+.pytest_cache/

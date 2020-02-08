@@ -1,12 +1,184 @@
+1.72
+---
+* 给GetSecurityQuotes添加解析后的时间字段 servertime, 参考  #187, 感谢 @liuyug
+
+1.71
+---
+* 更新了最优ip获取部分 #217
+
+1.70
+---
+* 恢复了从通达信proxy服务器获取历史财务数据的方法，可以通过 HistoryFinancialListCrawler.mode = "http" 切回使用http的方式。
+
+1.69
+---
+* 修复了历史财务数据无法下载问题。 by yutiansut
+
+1.68
+---
+* 交易日历更新
+
+1.67
+---
+* 增加`TdxTradeServer1.8.0.0`支持
+* trade模块增加 `send_orders`, `cancel_orders`, `get_quotes`, `query_datas` 支持
+
+1.66
+---
+* 对`get_tts`支持`TdxTradeServer1.7.0.0`版本
+* trade模块增加 `get_active_clients` 功能
+
+1.65
+---
+* 增加历史财务数据相关下载和解析方法 ，参考文档 https://rainx.gitbooks.io/pytdx/content/pytdx_crawler.html 
+    感谢 @datochan issue #133
+
+1.64
+---
+* 增加query_history_data接口 2018-02-05 see: https://github.com/rainx/TdxTradeServer/releases/tag/v1.6.0.0
+
+1.63
+---
+* fix issue #146, 股票涨速字段解析有错 @a19284
+
+1.62
+----
+* Merge PR: fix bug for eol update to 1.62 #138
+1.61
+----
+* Merge pull request #136 from yutiansut/master 更新2018年交易日历
+
+1.60
+----
+* Merge pull request #122, #125 from zsluedem/master : fix bugs on hqpool
+* 增加指定绑定本地端口和ip地址功能 issue #119 https://github.com/rainx/pytdx/issues/119
+
+1.59
+----
+* hk stock amount fix form pr https://github.com/rainx/pytdx/pull/115
+* upgrade TdxTradeServer to 1.5 version for support multi account trade
+
+1.58
+----
+* merge pr #110 - fix typo cacnel_order to  cancel _order  
+
+1.57
+-----
+* GetSecurityList name.rstrip("\x00")  Merge pull request #100 from JaysonAlbert/hotfix 
+* 修改财务信息 将(万元)的列 *10000 pr #102 from yutiansut:master
+
+1.56
+------
+* connect增加了time_out 参数 Merge pull request #99 from yutiansut/master 
+
+1.55
+------
+* 为 get_security_quotes 增加了几种重载调用的方式：```get_security_quotes(market, code )``` 
+```get_security_quotes((market, code))```
+```get_security_quotes([(market1, code1), (market2, code2)] )```
+* 修正了nature_name的拼写错误(natrue), 为了保持兼容性，原有的natrue_name还会保留一段时间
+
+
+1.54
+------
+* Merge pull request Feature/fix nature name #91 @wopalm 修正期货和港股的nature_name解析问题
+
+1.53
+------
+* Merge pull request #84 from JaysonAlbert/master  修复best_ip bug
+* 在Cython编译版本增加了部分文件
+* Merge pull request #86 from yutiansut/master 
+* 添加新的获取扩展行情列表的接口 get_instrument_quote_list , 可以批量扩展行情获取某个市场的行情数据
+
+1.52
+------
+* base_socket_client 增加了 send_raw_pkg 方法，方便调试
+* hqbenchmark命令支持端口（默认7709)
+
+1.51
+------
+* （注意：可能有潜在代码变更）合并 PR #83 by @nickolaslu : 沪深股票，基金，指数，债券的四价和成交量的系数是不一样的，
+ie. 股票的VOLUME也要乘0.01, 基金，债券的四价是乘0.001 ... https://github.com/rainx/pytdx/pull/83
+
+1.50
+------
+* 合并PR #80 去掉自定义板块读取的代码中的市场代码部分 by @JaysonAlbert
+
+1.49
+------
+* 合并PR #79 , 读取通达信备份的自定义板块文件夹 by @JaysonAlbert
+* 增加 hqreader -d customblock 选项
+
+1.48
+------
+* 增加hqbenchmark行情服务器测速工具
+
+1.47
+------
+* 修复 版本1.45 修改时引发的其它数据无法匹配问题
+
+1.46
+------
+* 将parser基类中的base.py里面的异常从继承BaseException改为集成Exception, 对应修复问题：https://github.com/rainx/pytdx/issues/68
+
+1.45
+------
+* 修复get_finance_info总现金流不对 等问题， issue: https://github.com/rainx/pytdx/issues/73
+
+1.44
+------
+* 增加 get_tts 命令，用于下载并配置TdxTradeServer服务
+* 增加了一部分通达信服务器地址到hosts.py配置文件中 
+
+1.43
+------
+* 修复 get_k_data 方法 的问题 https://github.com/rainx/pytdx/pull/59
+* 给hqget和hqreader增加pandas display.max_columns display.max_rows参数, 使其可以显示全部内容
+
+1.42
+------
+* 增加了api.get_traffic_stats 获取当前连接的流量统计情况
+
+1.41
+------
+* 增加GetBlockInfoMeta， 增加GetBlockInfo， get_and_parse_block_info 等支持直接下载并解析板块文件， 感谢 @mi-fox帮助分析协议
+
+1.40
+------
+* 增加BlockReader用于读取板块列表
+
+1.39
+------
+* 修复GetSecurityQuotesCmd里面一个保留位长度计算错误导致某些行情无法获取的问题。
+
+1.38
+------
+* 修复抛出在auto_retry开启时TdxFunctionCallError异常时的一个小问题
+
+1.37
+------
+* 增加自动重连机制 auto_retry=True 时生效，并可以自定制重连策略
+* 增加连接和接口调用时的异常处理
+
+1.36
+------
+* fix bugs that break on call get_security_quotes on py2.7
+* 修复 get_security_quotes 在没有行情的时候报错 https://github.com/rainx/pytdx/issues/44
+
+1.35
+------
+* 修复 exhqapi.get_transaction_data里的增仓数据不正确, 性质数据对不上 thx @zzeric
+see https://github.com/rainx/pytdx/issues/31
+
 1.34
 ------
-增加了 https://github.com/rainx/pytdx/issues/38 IP寻优的简单办法 
-xdxr https://github.com/rainx/pytdx/issues/37 修改了对 11, 12, 13, 14 类别的支持， 针对13，14，增加了 fenshu xingquanjia 字段
+* 增加了 https://github.com/rainx/pytdx/issues/38 IP寻优的简单办法 
+* xdxr https://github.com/rainx/pytdx/issues/37 修改了对 11, 12, 13, 14 类别的支持， 针对13，14，增加了 fenshu xingquanjia 字段
 
 
 1.33
 ------
-修复 Python2.x 无法安装的问题 https://github.com/rainx/pytdx/issues/36
+* 修复 Python2.x 无法安装的问题 https://github.com/rainx/pytdx/issues/36
 
 1.32
 ------
